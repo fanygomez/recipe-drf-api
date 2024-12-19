@@ -31,7 +31,7 @@ A Django-based REST API for managing recipes, built with modern Python developme
 ```bash
 git clone https://github.com/yourusername/recipe-drf-api.git
 cd recipe-drf-api
-
+```
 To start project, run:
 
 ```
