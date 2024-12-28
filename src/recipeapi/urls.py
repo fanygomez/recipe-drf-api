@@ -24,18 +24,14 @@ from drf_spectacular.views import (
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
-    path(
-        'api/docs/',
-        SpectacularSwaggerView.as_view(url_name='api-schema'),
-        name='api-docs',
-    ),
     path('api/users/', include('user.urls')),
     path('api/recipes/', include('recipe.urls')),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(
-        settings.MEDIA_URL,
-        document_root=settings.MEDIA_ROOT,
-    )
+    urlpatterns += [
+        path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
+        path('api/docs/',
+             SpectacularSwaggerView.as_view(url_name='api-schema'),
+             name='api-docs'),
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
