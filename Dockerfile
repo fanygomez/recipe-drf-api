@@ -7,6 +7,7 @@ ENV PYTHONUNBUFFERED 1
 
 COPY ./requirements/requirements.txt /tmp/requirements.txt
 COPY ./requirements/requirements.dev.txt /tmp/requirements.dev.txt
+COPY ./scripts /scripts
 COPY ./src /src
 WORKDIR /src
 EXPOSE 8000
@@ -16,7 +17,7 @@ RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     apk add --update --no-cache postgresql-client jpeg-dev && \
     apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev  zlib zlib-dev && \
+        build-base postgresql-dev musl-dev  zlib zlib-dev linux-headers && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
@@ -32,5 +33,7 @@ RUN python -m venv /py && \
         chown -R usr_api:usr_api /vol && \
         chmod -R 755 /vol
 
-ENV PATH="/py/bin:$PATH"
+ENV PATH="/scripts:/py/bin:$PATH"
 USER usr_api
+
+CMD ["run.sh"]

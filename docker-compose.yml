@@ -20,6 +20,7 @@ services:
       - DB_NAME=recipe-api-db
       - DB_USER=usr_api
       - DB_PASS=brabus$01
+      - DEBUG=1
     depends_on:
       - db
 
