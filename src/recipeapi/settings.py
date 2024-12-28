@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'drf_spectacular',
+    'health_check',  # Health check core
+    'health_check.db',
+    'health_check.storage',
     'core',
     'user',
     'recipe',
@@ -161,4 +164,12 @@ SPECTACULAR_SETTINGS = {
         'name': 'MIT',
         'url': 'https://opensource.org/licenses/MIT'
     },
+}
+
+HEALTH_CHECK = {
+    'CACHE': True,
+    'DATABASE': True,
+    'STORAGE': True,
+    'TIMEOUT': 5,
+    'JSON_RESPONSE': True,
 }
